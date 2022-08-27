@@ -9,7 +9,6 @@ import petrusel.myapp.v1.model.User;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class MyUserDetails implements UserDetails {
 

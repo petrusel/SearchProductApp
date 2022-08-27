@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import petrusel.myapp.v1.model.Role;
 import petrusel.myapp.v1.model.User;
 import petrusel.myapp.v1.service.UserService;
 

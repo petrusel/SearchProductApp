@@ -7,7 +7,6 @@ import petrusel.myapp.v1.model.Role;
 import petrusel.myapp.v1.model.User;
 import petrusel.myapp.v1.repository.UserRepository;
 
-import javax.print.attribute.standard.MediaSize;
 import java.util.List;
 
 @Service
