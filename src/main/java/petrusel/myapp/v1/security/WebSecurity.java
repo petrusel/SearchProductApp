@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import petrusel.myapp.v1.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -41,20 +42,24 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.
-            authorizeRequests()
-                .antMatchers("/").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/updateUsersRoles").hasAnyAuthority("ADMIN")
-                .antMatchers("/addNewProduct").hasAnyAuthority("ADMIN")
-                .antMatchers("/editProduct").hasAnyAuthority("ADMIN")
-                .antMatchers("/deleteProduct").hasAuthority("ADMIN")
+        http
+            .authorizeRequests()
+                .antMatchers("/registration").permitAll()
+                .antMatchers("/usersList").hasAuthority("ADMIN")
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().permitAll()
+            .formLogin()
+                .loginPage("/login")
+                .permitAll()
                 .and()
-                .logout().permitAll()
+            .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login?logout")
+                .permitAll()
                 .and()
-                .exceptionHandling().accessDeniedPage("/403")
+            .exceptionHandling().accessDeniedPage("/403")
         ;
     }
 }

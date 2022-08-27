@@ -14,10 +14,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getUserByUsername(username);
+        User user = userRepository.findUserByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
         }
+        System.out.println("rolul utilizatorului" + user.getRoles().toString());
         return new MyUserDetails(user);
     }
 }
