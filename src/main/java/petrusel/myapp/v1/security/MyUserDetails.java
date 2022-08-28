@@ -1,4 +1,4 @@
-package petrusel.myapp.v1.service;
+package petrusel.myapp.v1.security;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

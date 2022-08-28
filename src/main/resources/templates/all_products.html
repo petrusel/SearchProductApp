@@ -75,18 +75,29 @@
     <!--BODY-->
     <div class="card-body">
         <div class="container-fluid">
-            <div th:object="${user}">
-                <h2>User details:</h2>
-                <br>
-                <b>Id: </b><span th:text="${user.id}"></span><br>
-                <b>Username: </b><span th:text="${user.username}"></span><br>
-                <b>E-mail: </b><span th:text="${user.email}"></span><br>
-                <b>Encoded password: </b><span th:text="${user.password}"></span><br>
-                <b>Roles: </b><span sec:authentication="principal.authorities"></span><br>
-            </div>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Edit / delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr th:each="prod: ${allProducts}">
+                    <th scope="row"><img th:src="*{'data:image/jpeg;base64,' + ${prod.image}}" style="width: 100px; height: 100px" alt=""></th>
+                    <td th:text="${prod.name}"></td>
+                    <td th:text="${prod.description}"></td>
+                    <td>
+                        <a th:href="@{'/editProduct/' + ${prod.id}}" role="button" class="btn btn-success">Edit</a>
+                        <a th:href="@{'/deleteProduct/' + ${prod.id}}" role="button" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"

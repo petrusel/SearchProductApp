@@ -64,6 +64,7 @@
       <ul class="dropdown-menu">
         <li><a th:href="@{/searchProd}" class="dropdown-item" >Search product</a></li>
         <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
+        <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addProduct}" class="dropdown-item" >Add product</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usersList}" class="dropdown-item" >All users</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a th:href="@{/logout}" class="dropdown-item">Logout</a></li>
