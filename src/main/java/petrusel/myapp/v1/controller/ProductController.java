@@ -3,12 +3,14 @@ package petrusel.myapp.v1.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import petrusel.myapp.v1.model.Product;
 import petrusel.myapp.v1.service.ProductService;
 
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -37,8 +39,14 @@ public class ProductController {
             @RequestParam("file") MultipartFile file,
             @RequestParam("pname") String name,
             @RequestParam("desc") String desc
-        ) {
+        ) throws IOException {
         productService.addProduct(file, name, desc);
+        return "redirect:/allProducts";
+    }
+
+    @GetMapping("/deleteProduct/{id}")
+    public String deleteProduct(@PathVariable Integer id) {
+        productService.deleteProduct(id);
         return "redirect:/allProducts";
     }
 }

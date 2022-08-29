@@ -24,18 +24,16 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void addProduct(MultipartFile file, String name, String description) {
+    public void addProduct(MultipartFile file, String name, String desc) throws IOException {
         Product product = new Product();
-        String fileName = StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
-        if (fileName.contains("..")) {
-            System.out.println("File is not valid!");
-        }
-        try {
-            product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        product.setDescription(description);
+        product.setName(name);
+        product.setImage(file.getBytes());
+        product.setDescription(desc);
         productRepository.save(product);
+    }
+
+    public void deleteProduct(Integer id) {
+        Product product = productRepository.getReferenceById(id);
+        productRepository.delete(product);
     }
 }
