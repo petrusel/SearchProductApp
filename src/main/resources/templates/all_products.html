@@ -78,7 +78,7 @@
             <table class="table">
                 <thead>
                     <tr>
-<!--                        <th scope="col">Image</th>-->
+                        <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Edit / delete</th>
@@ -87,6 +87,7 @@
                 <tbody>
                 <tr th:each="prod: ${allProducts}">
 <!--                    <th scope="row"><img th:src="*{'data:image/jpeg;base64,' + ${prod.image}}" style="width: 100px; height: 100px" alt=""></th>-->
+                    <td th:text="${prod.image}"></td>
                     <td th:text="${prod.name}"></td>
                     <td th:text="${prod.description}"></td>
                     <td>

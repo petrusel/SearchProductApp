@@ -3,6 +3,7 @@ package petrusel.myapp.v1.model;
 import org.springframework.stereotype.Controller;
 
 import javax.persistence.*;
+import java.util.Arrays;
 
 @Entity
 @Table(name = "products")
@@ -55,4 +56,5 @@ public class Product {
     public void setDescription(String description) {
         this.description = description;
     }
+
 }
