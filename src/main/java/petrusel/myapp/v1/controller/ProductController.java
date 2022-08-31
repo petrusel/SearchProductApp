@@ -44,6 +44,18 @@ public class ProductController {
         return "redirect:/allProducts";
     }
 
+    @GetMapping("/edit/{id}")
+    public String showEditProductForm(@PathVariable Integer id, Product product) {
+        // add code
+        return "edit_product_form";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String saveUpdateProduct(@PathVariable Integer id, Product product) {
+        // add code
+        return "redirect:/allProducts";
+    }
+
     @GetMapping("/deleteProduct/{id}")
     public String deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);

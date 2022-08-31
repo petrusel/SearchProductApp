@@ -14,12 +14,13 @@ public class Product {
     private Integer id;
     private String name;
     @Lob
-    private byte[] image;
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String image;
     private String description;
 
     public Product() {}
 
-    public Product(String name, byte[] image, String description) {
+    public Product(String name, String image, String description) {
         this.name = name;
         this.image = image;
         this.description = description;
@@ -41,11 +42,11 @@ public class Product {
         this.name = name;
     }
 
-    public byte[] getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(byte[] image) {
+    public void setImage(String image) {
         this.image = image;
     }
 
