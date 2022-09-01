@@ -40,6 +40,22 @@ public class ProductService {
         productRepository.save(product);
     }
 
+    public void updateProduct(Integer id, MultipartFile file, String name, String desc) {
+        Product product = productRepository.getReferenceById(id);
+        product.setName(name);
+        try {
+            product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        product.setDescription(desc);
+        productRepository.save(product);
+    }
+
+    public Product getProductById(Integer id) {
+        return productRepository.getReferenceById(id);
+    }
+
     public void deleteProduct(Integer id) {
         Product product = productRepository.getReferenceById(id);
         productRepository.delete(product);

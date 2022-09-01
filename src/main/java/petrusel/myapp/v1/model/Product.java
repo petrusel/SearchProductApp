@@ -1,9 +1,6 @@
 package petrusel.myapp.v1.model;
 
-import org.springframework.stereotype.Controller;
-
 import javax.persistence.*;
-import java.util.Arrays;
 
 @Entity
 @Table(name = "products")
@@ -14,7 +11,6 @@ public class Product {
     private Integer id;
     private String name;
     @Lob
-    @Column(columnDefinition = "MEDIUMBLOB")
     private String image;
     private String description;
 

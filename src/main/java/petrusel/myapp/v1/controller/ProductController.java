@@ -44,15 +44,19 @@ public class ProductController {
         return "redirect:/allProducts";
     }
 
-    @GetMapping("/edit/{id}")
-    public String showEditProductForm(@PathVariable Integer id, Product product) {
-        // add code
+    @GetMapping("/editProduct/{id}")
+    public String showEditProductForm(@PathVariable Integer id, Model model) {
+        Product product = productService.getProductById(id);
+        model.addAttribute("product", product);
         return "edit_product_form";
     }
 
-    @PostMapping("/edit/{id}")
-    public String saveUpdateProduct(@PathVariable Integer id, Product product) {
-        // add code
+    @PostMapping("/editProduct/{id}")
+    public String saveUpdateProduct(@PathVariable Integer id,
+                                    @RequestParam("file") MultipartFile file,
+                                    @RequestParam("pname") String name,
+                                    @RequestParam("desc") String desc) {
+        productService.updateProduct(id, file, name, desc);
         return "redirect:/allProducts";
     }
 
