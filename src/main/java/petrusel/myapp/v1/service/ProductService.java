@@ -40,7 +40,9 @@ public class ProductService {
         Product existingProduct = productRepository.getReferenceById(id);
         existingProduct.setName(product.getName());
         try {
-            product.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            if(!file.getOriginalFilename().equals("")) {
+                existingProduct.setImage(Base64.getEncoder().encodeToString(file.getBytes()));
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
