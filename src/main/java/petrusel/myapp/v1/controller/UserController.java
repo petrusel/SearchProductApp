@@ -25,21 +25,18 @@ public class UserController {
     public String showRegistrationForm(Model model) {
         User userRegistration = new User();
         model.addAttribute("user", userRegistration);
-        System.out.println("UserController registration form");
-        return "registration_form";
+        return "registration";
     }
 
     @PostMapping("/registration")
     public String registerUserAccount(@ModelAttribute("user") User userRegistration) {
-        System.out.println("UserController: save userRegistration");
         userService.saveUser(userRegistration);
         return "redirect:/registration?success";
     }
 
     @GetMapping("/login")
     public String login() {
-        System.out.println("UserController login form");
-        return "login_form";
+        return "login";
     }
 
     @GetMapping("/")
@@ -47,22 +44,19 @@ public class UserController {
         String un = principal.getName();
         User loggedUser = userService.getUserByUsername(un);
         model.addAttribute("user", loggedUser);
-        System.out.println("UserController: show logged user details");
         return "user_details";
     }
 
-    @GetMapping("/usersList")
+    @GetMapping("/user/list")
     public String showALlUsers(Model model) {
         List<User> users = userService.getAllUsers();
-        System.out.println("UserController: show all users");
         model.addAttribute("allUsers", users);
         return "users_list";
     }
 
-    @GetMapping("/deleteUser/{id}")
+    @GetMapping("/user/{id}/delete")
     public String deleteUser(@PathVariable Long id) {
-        System.out.println("UserController: delete user");
         userService.deleteUser(id);
-        return "redirect:/usersList";
+        return "redirect:/user/list";
     }
 }

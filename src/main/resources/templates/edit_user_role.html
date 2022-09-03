@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="ISO-8859-1">
-    <title>Products</title>
+    <title>User details</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
@@ -22,7 +22,7 @@
 
         .card-header{
             position: fixed;
-            background-color: #bfe7f0;
+            background-color: #5c88aa;
             width: 100%;
             height: 5rem;
             text-align: center;
@@ -30,9 +30,9 @@
 
         .card-body{
             margin: 0 auto;
-            background-color: #b27a7a;
+            background-color: #e2f5d7;
             width: 100%;
-            min-height: 45rem;
+            min-height: 48rem;
             height: auto;
             align-items: center;
         }
@@ -43,18 +43,11 @@
         }
 
         .container-fluid{
-          width: 70%;
-          text-align: left;
-          font-size: 1.2rem;
-          margin-top: 5rem;
+            width: 50%;
+            text-align: left;
+            font-size: 1.2rem;
+            margin-top: 10rem;
         }
-
-        #id_addBtn_div{
-            position: fixed;
-            bottom: 10%;
-            right: 5%;
-        }
-
 
     </style>
 </head>
@@ -71,9 +64,9 @@
             <ul class="dropdown-menu">
                 <li><a th:href="@{/searchProd}" class="dropdown-item" >Search product</a></li>
                 <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
-                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/addProduct}" class="dropdown-item" >Add product</a></li>
-                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/allProducts}" class="dropdown-item" >Show products</a></li>
-                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/usersList}" class="dropdown-item" >All users</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/new}" class="dropdown-item" >Add product</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/list}" class="dropdown-item" >All products</a></li>
+                <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/user/list}" class="dropdown-item" >All users</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a th:href="@{/logout}" class="dropdown-item">Logout</a></li>
             </ul>
@@ -83,29 +76,22 @@
     <!--BODY-->
     <div class="card-body">
         <div class="container-fluid">
-            <table class="table table-hover table-borderless">
-                <tbody>
-                    <tr th:each="prod: ${allProducts}">
-                        <td class="align-middle">
-                            <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">
-                            <h6 th:text="${prod.name}"></h6>
-                        </td>
-                        <td class="align-middle" style="width: 60%">
-                            <h5>Description:</h5>
-                            <p th:text="${prod.description}"></p>
-                        </td>
-                        <td class="align-middle">
-                            <a th:href="@{'/editProduct/' + ${prod.id}}" role="button" class="btn btn-success">Edit</a>
-                            <a th:href="@{'/deleteProduct/' + ${prod.id}}" role="button" class="btn btn-danger">Delete</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <div id="id_addBtn_div" class="">
-                <a  th:href="@{/addProduct}" role="button" class="btn btn-danger rounded-circle">+</a>
-            </div>
+            <form th:action="@{'/user/' + ${role.id} + '/editRole'}" th:object="${role}" method="post">
+                <!--First name-->
+                <div class="mb-3">
+                    <label for="name" class="form-label">
+                        Role:
+                    </label>
+                    <input id="name" th:field="*{name}" class="form-control" required autofocus="autofocus"/>
+                    <div id="nameHelp" class="form-text">Please enter the role in capital letters! (USER or ADMIN)</div>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-info">Save role</button>
+                </div>
+            </form>
         </div>
     </div>
+
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
