@@ -1,6 +1,9 @@
 package petrusel.myapp.v1.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -12,7 +15,12 @@ public class Product {
     private String name;
     @Lob
     private String image;
+    @Lob
+    @Type(type = "org.hibernate.type.TextType")
     private String description;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<Price> prices;
 
     public Product() {}
 
@@ -54,4 +62,11 @@ public class Product {
         this.description = description;
     }
 
+    public List<Price> getPrices() {
+        return prices;
+    }
+
+    public void setPrices(List<Price> prices) {
+        this.prices = prices;
+    }
 }

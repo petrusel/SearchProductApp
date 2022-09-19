@@ -47,10 +47,10 @@
         }
 
         .container-fluid{
-          width: 50%;
-          text-align: left;
-          font-size: 1.2rem;
-          margin-top: 10rem;
+            width: 50%;
+            text-align: left;
+            font-size: 1.2rem;
+            margin-top: 10rem;
         }
 
         #id_back_btn{
@@ -86,28 +86,19 @@
     <!--BODY-->
     <div class="card-body">
         <div class="container-fluid">
-            <!--Add product form-->
-            <form th:action="@{/product/new}" method="post" th:object="${product}" enctype="multipart/form-data">
-                <!--Image-->
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">
-                        Picture:
-                    </label>
-                    <input id="formFile" name="file" type="file" class="form-control">
+            <div th:if="${param.success}" class="mb-3">
+                <div class="alert alert-success" role="alert">
+                    You're successfully added link!
                 </div>
-                <!--Name-->
+            </div>
+            <!--Add link form-->
+            <form th:action="@{'/product/' + ${id} + '/addLink'}" method="post" th:object="${link}">
+                <!--Link-->
                 <div class="mb-3">
-                    <label for="name" class="form-label">
-                        Name:
+                    <label for="link" class="form-label">
+                        Add link:
                     </label>
-                    <input id="name" th:field="*{name}" type="text" class="form-control" required autofocus="autofocus"/>
-                </div>
-                <!--Description-->
-                <div class="mb-3">
-                    <label for="desc" class="form-label">
-                        Description:
-                    </label>
-                    <input id="desc" th:field="*{description}" type="text" class="form-control" required autofocus="autofocus"/>
+                    <input id="link" th:field="*{link}" type="text" class="form-control" required autofocus="autofocus"/>
                 </div>
                 <!--Submit button-->
                 <div>
