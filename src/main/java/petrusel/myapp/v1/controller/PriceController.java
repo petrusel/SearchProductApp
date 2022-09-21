@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import petrusel.myapp.v1.model.Price;
 import petrusel.myapp.v1.model.Product;
 import petrusel.myapp.v1.service.PriceService;
@@ -31,5 +32,11 @@ public class PriceController {
     public String saveLink(@PathVariable Integer id, Price price) {
         priceService.addProductLinks(id, price);
         return "redirect:/product/{id}/addLink?success";
+    }
+
+    @RequestMapping(value="/takePrices")
+    public String updatePrices() {
+        priceService.getPrices();
+        return "redirect:/product/list?success";
     }
 }

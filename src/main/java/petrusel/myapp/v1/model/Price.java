@@ -11,7 +11,6 @@ public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String titleProduct;
     private String priceProduct;
     @Lob
     @Type(type = "org.hibernate.type.TextType")
@@ -23,8 +22,7 @@ public class Price {
 
     public Price() {}
 
-    public Price(String titleProduct, String priceProduct, String link, Product product) {
-        this.titleProduct = titleProduct;
+    public Price(String priceProduct, String link, Product product) {
         this.priceProduct = priceProduct;
         this.link = link;
         this.product = product;
@@ -36,14 +34,6 @@ public class Price {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getTitleProduct() {
-        return titleProduct;
-    }
-
-    public void setTitleProduct(String titleProduct) {
-        this.titleProduct = titleProduct;
     }
 
     public String getPriceProduct() {
@@ -68,5 +58,14 @@ public class Price {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "Price{" +
+                "id=" + id +
+                ", priceProduct='" + priceProduct + '\'' +
+                ", link='" + link + '\'' +
+                '}';
     }
 }

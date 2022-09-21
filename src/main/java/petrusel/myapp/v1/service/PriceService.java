@@ -51,29 +51,34 @@ public class PriceService {
 
     public void getPrices() {
         List<Price> links = priceRepository.findAll();
-        for (Price link : links) {
+        for(Price link : links) {
             Document doc = getDocument(link.getLink());
-            String title = "";
             String price = "";
+            Element priceBlock;
             if (link.getLink().contains("emag")) {
-                Element pricingBlock = doc.select("div.pricing-block.has-installments").first();
+                priceBlock = doc.select("div.pricing-block.has-installments").first();
 
-                title = doc.select("h1.page-title").text();
-
-                if (pricingBlock.select("p.product-new-price.has-deal").text().equals("")) {
-                    price = pricingBlock.select("p.product-new-price").text();
+                if (priceBlock.select("p.product-new-price.has-deal").text().equals("")) {
+                    price = priceBlock.select("p.product-new-price").text();
                 } else {
-                    price = pricingBlock.select("p.product-new-price.has-deal").text();
+                    price = priceBlock.select("p.product-new-price.has-deal").text();
                 }
             } else if (link.getLink().contains("flanco")) {
+                priceBlock = doc.getElementsByClass("price-box price-final_price").first();
 
+                if (priceBlock.select("span.special-price").text().equals("")) {
+                    price = priceBlock.select("span.singlePrice").text();
+                } else {
+                    price = priceBlock.select("span.special-price").text();
+                }
             } else if (link.getLink().contains("cel")) {
-
+                priceBlock = doc.getElementsByClass("pret_tabela").first();
+                price = priceBlock.select("span#product-price").text() + " Lei";
             } else {
-                System.out.println("The shop not exists in the list.");
+                System.out.println("The shop doesn't exist in the list");
             }
-            link.setTitleProduct(title);
             link.setPriceProduct(price);
+            priceRepository.save(link);
         }
     }
 }
