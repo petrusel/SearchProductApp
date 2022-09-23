@@ -98,14 +98,14 @@
                 </div>
             </div>
             <div id="id_updatePrices_div">
-                <button type="button" th:onclick="|window.location.href='/takePrices'|" class="btn btn-primary"><i class="las la-sync-alt"></i></button>
+                <button type="button" th:onclick="|window.location.href='/takePrices'|" class="btn btn-primary"><i class="las la-sync-alt la-2x"></i></button>
             </div>
             <table class="table table-hover table-borderless">
                 <tbody>
                     <tr th:each="prod: ${allProducts}">
                         <td class="align-middle" style="width: 20%">
                             <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">
-                            <h6 th:text="${prod.name}"></h6>
+                            <a th:href="@{'/product/' + ${prod.id} + '/links'}"><h6 th:text="${prod.name}"></h6></a>
                         </td>
                         <td class="align-middle" style="width: 60%">
                             <h5>Description:</h5>
@@ -113,14 +113,13 @@
                         </td>
                         <td class="align-middle" style="width: 20%">
                             <a th:href="@{'/product/' + ${prod.id} + '/edit'}" role="button" class="btn btn-success"><i class="las la-pen"></i></a>
-                            <a th:href="@{'/product/' + ${prod.id} + '/addLink'}" role="button" class="btn btn-dark"><i class="las la-link"></i></a>
                             <a th:href="@{'/product/' + ${prod.id} + '/delete'}" role="button" class="btn btn-danger"><i class="las la-trash"></i></a>
                         </td>
                     </tr>
                 </tbody>
             </table>
             <div id="id_addBtn_div">
-                <a th:href="@{/product/new}" role="button" class="btn btn-danger rounded-circle">+</a>
+                <a th:href="@{/product/new}" role="button" class="btn btn-danger rounded-circle"><i class="las la-plus-circle la-2x"></i></a>
             </div>
         </div>
     </div>

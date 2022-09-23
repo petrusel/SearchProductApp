@@ -11,15 +11,18 @@ import petrusel.myapp.v1.model.Product;
 import petrusel.myapp.v1.service.PriceService;
 import petrusel.myapp.v1.service.ProductService;
 
+import java.util.List;
+
 @Controller
 public class PriceController {
 
     private final PriceService priceService;
+    private final ProductService productService;
 
-    public PriceController(PriceService priceService) {
+    public PriceController(PriceService priceService, ProductService productService) {
         this.priceService = priceService;
+        this.productService = productService;
     }
-    // add endpoints for mapping the button to get and update the prices
 
     @GetMapping("/product/{id}/addLink")
     public String addLink(@PathVariable Integer id, Model model) {
@@ -38,5 +41,33 @@ public class PriceController {
     public String updatePrices() {
         priceService.getPrices();
         return "redirect:/product/list?success";
+    }
+
+    @GetMapping("/product/{id}/links")
+    public String showLinks(@PathVariable Integer id, Model model) {
+        List<Price> links = priceService.getLinks(id);
+        model.addAttribute("allLinks", links);
+        return "links_list";
+    }
+
+    @GetMapping("/product/{idProduct}/link/{idLink}/delete")
+    public String removeLink(@PathVariable Integer idLink) {
+        priceService.deleteLink(idLink);
+        return "redirect:/product/{idProduct}/links";
+    }
+
+    @GetMapping("/product/{idProduct}/link/{idLink}/edit")
+    public String editLinkForm(@PathVariable Integer idProduct, @PathVariable Integer idLink, Model model) {
+        Price price = priceService.getLinkById(idLink);
+        Product product = productService.getProductById(idProduct);
+        model.addAttribute("link", price);
+        model.addAttribute("id", product.getId());
+        return "edit_link";
+    }
+
+    @PostMapping("/product/{idProduct}/link/{idLink}/edit")
+    public String saveEditLink(@PathVariable Integer idProduct, @PathVariable Integer idLink, Price price) {
+        priceService.updateLink(idLink, price);
+        return "redirect:/product/{idProduct}/links";
     }
 }

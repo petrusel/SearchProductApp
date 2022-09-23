@@ -103,9 +103,11 @@
                 <!--Submit button-->
                 <div>
                     <button type="submit" class="btn btn-secondary">Add</button>
-                    <button id="id_back_btn" onclick="location.href='/product/list'" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></button>
                 </div>
             </form>
+
+            <a id="id_back_btn" th:href="@{'/product/' + ${id} + '/links'}" role="button" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
+
         </div>
     </div>
 </div>

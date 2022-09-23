@@ -81,4 +81,24 @@ public class PriceService {
             priceRepository.save(link);
         }
     }
+
+    public List<Price> getLinks(Integer id) {
+        Product product = productRepository.getReferenceById(id);
+        return product.getPrices();
+    }
+
+    public void deleteLink(Integer id) {
+        Price link = priceRepository.getReferenceById(id);
+        priceRepository.delete(link);
+    }
+
+    public void updateLink(Integer idLink, Price link) {
+        Price existingLink = priceRepository.getReferenceById(idLink);
+        existingLink.setLink(link.getLink());
+        priceRepository.save(existingLink);
+    }
+
+    public Price getLinkById(Integer idLink) {
+        return priceRepository.getReferenceById(idLink);
+    }
 }
