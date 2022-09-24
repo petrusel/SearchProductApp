@@ -84,6 +84,7 @@ public class PriceService {
 
     public List<Price> getLinks(Integer id) {
         Product product = productRepository.getReferenceById(id);
+        System.out.println("returnez lista de preturi");
         return product.getPrices();
     }
 

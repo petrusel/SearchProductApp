@@ -58,4 +58,8 @@ public class ProductService {
         Product product = productRepository.getReferenceById(id);
         productRepository.delete(product);
     }
+
+    public List<Product> getProdByKeyword(String keyword) {
+        return productRepository.getProducts(keyword);
+    }
 }

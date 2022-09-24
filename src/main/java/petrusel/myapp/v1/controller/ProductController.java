@@ -63,4 +63,11 @@ public class ProductController {
         productService.deleteProduct(id);
         return "redirect:/product/list";
     }
+
+    @GetMapping("/search")
+    public String showProducts(String keyword, Model model) {
+        List<Product> products = productService.getProdByKeyword(keyword);
+        model.addAttribute("allProducts", products);
+        return "search_product";
+    }
 }

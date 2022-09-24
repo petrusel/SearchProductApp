@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="ISO-8859-1">
-  <title>Products</title>
+  <title>Add product</title>
 
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 
@@ -47,28 +47,10 @@
         }
 
         .container-fluid{
-          width: 70%;
-          text-align: left;
-          font-size: 1.2rem;
-          margin-top: 10rem;
-        }
-
-        #id_addBtn_div{
-            position: fixed;
-            bottom: 10%;
-            right: 5%;
-        }
-
-        #id_addLinkBtn_a{
-            position:fixed;
-            top: 20%;
-            right: 5%;
-        }
-
-        #id_back_btn{
-            position: fixed;
-            top: 20%;
-            left: 5%;
+            width: 50%;
+            text-align: left;
+            font-size: 1.2rem;
+            margin-top: 10rem;
         }
 
     </style>
@@ -84,7 +66,7 @@
         <span sec:authentication="name"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a th:href="@{/product/search}" class="dropdown-item" >Search product</a></li>
+        <li><a th:href="@{/searchProd}" class="dropdown-item" >Search product</a></li>
         <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/new}" class="dropdown-item" >Add product</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/list}" class="dropdown-item" >All products</a></li>
@@ -98,23 +80,30 @@
   <!--BODY-->
   <div class="card-body">
     <div class="container-fluid">
+      <div th:if="${param.success}" class="mb-3">
+        <div class="alert alert-success" role="alert">
+          You're successfully added link!
+        </div>
+      </div>
+      <!--Search-->
+      <form th:action="@{'/product/search'}" method="get">
+        <div class="input-group mb-3">
+          <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="Search">
+          <button class="btn btn-primary" type="submit"><i class="las la-search"></i></button>
+        </div>
+      </form>
       <table class="table table-hover table-borderless">
         <tbody>
-        <h3>Links</h3>
-        <tr th:each="link : ${allLinks}">
-          <td class="align-middle" style="width: 80%">
-            <a th:href="${link.link}"><p th:text="${link.link}"></p></a>
-          </td>
-          <td class="align-middle" style="width: 20%">
-            <a th:href="@{'/product/' + ${id} + '/link/' + ${link.id} + '/edit'}" role="button" class="btn btn-success"><i class="las la-pen"></i></a>
-            <a th:href="@{'/product/' + ${id} + '/link/' + ${link.id} + '/delete'}" role="button" class="btn btn-danger"><i class="las la-trash"></i></a>
-          </td>
-        </tr>
-
-        <button id="id_back_btn" onclick="location.href='/product/list'" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></button>
-
-        <a id="id_addLinkBtn_a" th:href="@{'/product/' + ${id} + '/addLink'}" role="button" class="btn btn-dark"><i class="las la-link la-2x"></i></a>
-
+          <tr th:each="prod : ${allProducts}">
+            <td class="align-middle" style="width: 20%">
+              <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">
+              <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}"></h6></a>
+            </td>
+            <td class="align-middle" style="width: 80%">
+              <h5>Description:</h5>
+              <p th:text="${prod.description}"></p>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

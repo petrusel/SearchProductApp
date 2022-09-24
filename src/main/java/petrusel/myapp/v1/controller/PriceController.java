@@ -70,4 +70,13 @@ public class PriceController {
         priceService.updateLink(idLink, price);
         return "redirect:/product/{idProduct}/links";
     }
+
+    @GetMapping("/product/{idProduct}/prices")
+    public String showPrices(@PathVariable Integer idProduct, Model model) {
+        List<Price> prices = priceService.getLinks(idProduct);
+        Product product = productService.getProductById(idProduct);
+        model.addAttribute("product", product);
+        model.addAttribute("prices", prices);
+        return "prices_list";
+    }
 }

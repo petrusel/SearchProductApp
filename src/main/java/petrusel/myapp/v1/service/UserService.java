@@ -22,7 +22,6 @@ public class UserService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         User user = new User(userRegistration.getUsername(), userRegistration.getEmail(),
                 passwordEncoder.encode(userRegistration.getPassword()), true, List.of(new Role("USER")));
-        System.out.println("UserService: save registered user details");
         userRepository.save(user);
     }
 
@@ -31,7 +30,6 @@ public class UserService {
         if (user == null) {
             throw new UsernameNotFoundException("User not found!");
         }
-        System.out.println("UserService: este returnat un user in functie de username");
         return user;
     }
 
