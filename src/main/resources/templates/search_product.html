@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
   <meta charset="ISO-8859-1">
-  <title>Add product</title>
+  <title>Search product</title>
 
   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
 
@@ -53,6 +53,18 @@
             margin-top: 10rem;
         }
 
+        #id_addBtn_div{
+            position: fixed;
+            bottom: 10%;
+            right: 5%;
+        }
+
+        #id_updatePrices_div{
+            position:fixed;
+            top: 20%;
+            right: 5%;
+        }
+
     </style>
 </head>
 <body>
@@ -61,14 +73,13 @@
   <!--HEADER-->
   <div class="card-header">
     <a id="id_pastebin_btn" th:href="@{/}" role="button" class="btn btn-secondary btn-lg">SchProd</a>
-    <div class="btn-group dropstart" sec:authorize="isAuthenticated()">
+    <div class="btn-group dropend" sec:authorize="isAuthenticated()">
       <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         <span sec:authentication="name"></span>
       </button>
       <ul class="dropdown-menu">
-        <li><a th:href="@{/searchProd}" class="dropdown-item" >Search product</a></li>
+        <li><a th:href="@{/product/search}" class="dropdown-item" >Search product</a></li>
         <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
-        <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/new}" class="dropdown-item" >Add product</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/list}" class="dropdown-item" >All products</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/user/list}" class="dropdown-item" >All users</a></li>
         <li><hr class="dropdown-divider"></li>
@@ -81,8 +92,8 @@
   <div class="card-body">
     <div class="container-fluid">
       <div th:if="${param.success}" class="mb-3">
-        <div class="alert alert-success" role="alert">
-          You're successfully added link!
+        <div class="alert alert-primary" role="alert">
+          You're successfully updated the prices!
         </div>
       </div>
       <!--Search-->
@@ -92,20 +103,46 @@
           <button class="btn btn-primary" type="submit"><i class="las la-search"></i></button>
         </div>
       </form>
-      <table class="table table-hover table-borderless">
-        <tbody>
-          <tr th:each="prod : ${allProducts}">
-            <td class="align-middle" style="width: 20%">
-              <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">
-              <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}"></h6></a>
-            </td>
-            <td class="align-middle" style="width: 80%">
-              <h5>Description:</h5>
-              <p th:text="${prod.description}"></p>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" th:each="prod : ${allProducts}">
+          <div class="card" style="font-size: 1rem; height: auto; align-items: center;">
+            <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" style="width: 7rem; height: 7rem">
+            <div class="card-body" style="min-height: 10rem; height: 11rem; background-color: #eeeeee;">
+              <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}" class="card-title"></h6></a>
+              <p th:text="${prod.description}" class="card-text"></p>
+            </div>
+            <div sec:authorize="hasAuthority('ADMIN')" class="card-footer" style="height: 3rem; width: 100%;" align="center">
+              <a th:href="@{'/product/' + ${prod.id} + '/edit'}"
+                 role="button" class="btn btn-success"><i class="las la-pen"></i></a>
+              <a th:href="@{'/product/' + ${prod.id} + '/delete'}"
+                 role="button" class="btn btn-danger"><i class="las la-trash"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--        <div class="card shadow p-3 mb-5 bg-body rounded" th:each="prod : ${allProducts}">-->
+<!--            <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">-->
+<!--            <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}"></h6></a>-->
+<!--            <h5>Description:</h5>-->
+<!--            <p th:text="${prod.description}"></p>-->
+<!--            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/product/' + ${prod.id} + '/edit'}"-->
+<!--               role="button" class="btn btn-success"><i class="las la-pen"></i></a>-->
+<!--            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/product/' + ${prod.id} + '/delete'}"-->
+<!--               role="button" class="btn btn-danger"><i class="las la-trash"></i></a>-->
+<!--        </div>-->
+
+      <!--Add new product-->
+      <a sec:authorize="hasAuthority('ADMIN')" id="id_addBtn_div"
+         th:href="@{/product/new}" role="button"
+         class="btn btn-danger rounded-circle"><i class="las la-plus-circle la-2x"></i>
+      </a>
+      <!--Add or update the prices-->
+      <button sec:authorize="hasAuthority('ADMIN')" id="id_updatePrices_div"
+              type="button" th:onclick="|window.location.href='/takePrices'|"
+              class="btn btn-primary"><i class="las la-sync-alt la-2x"></i>
+      </button>
+
+
     </div>
   </div>
 </div>

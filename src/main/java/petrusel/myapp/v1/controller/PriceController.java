@@ -40,7 +40,7 @@ public class PriceController {
     @RequestMapping(value="/takePrices")
     public String updatePrices() {
         priceService.getPrices();
-        return "redirect:/product/list?success";
+        return "redirect:/product/search?success";
     }
 
     @GetMapping("/product/{id}/links")
@@ -53,7 +53,7 @@ public class PriceController {
     @GetMapping("/product/{idProduct}/link/{idLink}/delete")
     public String removeLink(@PathVariable Integer idLink) {
         priceService.deleteLink(idLink);
-        return "redirect:/product/{idProduct}/links";
+        return "redirect:/product/{idProduct}/prices";
     }
 
     @GetMapping("/product/{idProduct}/link/{idLink}/edit")
