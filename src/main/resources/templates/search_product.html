@@ -80,7 +80,6 @@
       <ul class="dropdown-menu">
         <li><a th:href="@{/product/search}" class="dropdown-item" >Search product</a></li>
         <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
-        <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/list}" class="dropdown-item" >All products</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/user/list}" class="dropdown-item" >All users</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a th:href="@{/logout}" class="dropdown-item">Logout</a></li>
@@ -107,9 +106,12 @@
         <div class="col" th:each="prod : ${allProducts}">
           <div class="card" style="font-size: 1rem; height: auto; align-items: center;">
             <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" style="width: 7rem; height: 7rem">
-            <div class="card-body" style="min-height: 10rem; height: 11rem; background-color: #eeeeee;">
+            <div class="card-body" style="min-height: 10rem; height: 11rem; background-color: #eeeeee;" >
               <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}" class="card-title"></h6></a>
-              <p th:text="${prod.description}" class="card-text"></p>
+              <p th:text="${prod.description}" class="card-text"
+                 style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
+                      -webkit-line-clamp: 5; line-clamp: 5; -webkit-box-orient: vertical;">
+              </p>
             </div>
             <div sec:authorize="hasAuthority('ADMIN')" class="card-footer" style="height: 3rem; width: 100%;" align="center">
               <a th:href="@{'/product/' + ${prod.id} + '/edit'}"
@@ -120,17 +122,6 @@
           </div>
         </div>
       </div>
-<!--        <div class="card shadow p-3 mb-5 bg-body rounded" th:each="prod : ${allProducts}">-->
-<!--            <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" class="rounded-4" style="width: 100px; height: 100px" alt="">-->
-<!--            <a th:href="@{'/product/' + ${prod.id} + '/prices'}"><h6 th:text="${prod.name}"></h6></a>-->
-<!--            <h5>Description:</h5>-->
-<!--            <p th:text="${prod.description}"></p>-->
-<!--            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/product/' + ${prod.id} + '/edit'}"-->
-<!--               role="button" class="btn btn-success"><i class="las la-pen"></i></a>-->
-<!--            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{'/product/' + ${prod.id} + '/delete'}"-->
-<!--               role="button" class="btn btn-danger"><i class="las la-trash"></i></a>-->
-<!--        </div>-->
-
       <!--Add new product-->
       <a sec:authorize="hasAuthority('ADMIN')" id="id_addBtn_div"
          th:href="@{/product/new}" role="button"

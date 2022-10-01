@@ -53,12 +53,6 @@
             margin-top: 10rem;
         }
 
-        #id_back_btn{
-            position: fixed;
-            top: 20%;
-            left: 5%;
-        }
-
     </style>
 </head>
 <body>
@@ -74,7 +68,6 @@
       <ul class="dropdown-menu">
         <li><a th:href="@{/product/search}" class="dropdown-item" >Search product</a></li>
         <li><a th:href="@{/}" class="dropdown-item" >User details</a></li>
-        <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/product/list}" class="dropdown-item" >All products</a></li>
         <li><a sec:authorize="hasAuthority('ADMIN')" th:href="@{/user/list}" class="dropdown-item" >All users</a></li>
         <li><hr class="dropdown-divider"></li>
         <li><a th:href="@{/logout}" class="dropdown-item">Logout</a></li>
@@ -85,11 +78,6 @@
   <!--BODY-->
   <div class="card-body">
     <div class="container-fluid">
-      <div th:if="${param.success}" class="mb-3">
-        <div class="alert alert-success" role="alert">
-          You're successfully added link!
-        </div>
-      </div>
       <!--Add link form-->
       <form th:action="@{'/product/' + ${id} + '/link/' + ${link.id} + '/edit'}" method="post" th:object="${link}">
         <!--Link-->
@@ -104,9 +92,6 @@
           <button type="submit" class="btn btn-secondary">Update</button>
         </div>
       </form>
-
-      <a id="id_back_btn" th:href="@{'/product/' + ${id} + '/links'}" role="button" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
-
     </div>
   </div>
 </div>

@@ -20,12 +20,12 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/list")
-    public String showAllProducts(Model model) {
-        List<Product> products = productService.getAllProducts();
-        model.addAttribute("allProducts", products);
-        return "products_list";
-    }
+//    @GetMapping("/list")
+//    public String showAllProducts(Model model) {
+//        List<Product> products = productService.getAllProducts();
+//        model.addAttribute("allProducts", products);
+//        return "products_list";
+//    }
 
     @GetMapping("/new")
     public String newProductForm(Model model) {
@@ -40,7 +40,7 @@ public class ProductController {
             Product product
         ) throws IOException {
         productService.addProduct(file, product);
-        return "redirect:/product/list";
+        return "redirect:/product/search";
     }
 
     @GetMapping("/{id}/edit")
@@ -55,13 +55,13 @@ public class ProductController {
                                     @RequestParam("file") MultipartFile file,
                                     Product product) {
         productService.updateProduct(id, file, product);
-        return "redirect:/product/list";
+        return "redirect:/product/search";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteProduct(@PathVariable Integer id) {
         productService.deleteProduct(id);
-        return "redirect:/product/list";
+        return "redirect:/product/search";
     }
 
     @GetMapping("/search")

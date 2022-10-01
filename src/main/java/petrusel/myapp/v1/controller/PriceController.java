@@ -68,7 +68,7 @@ public class PriceController {
     @PostMapping("/product/{idProduct}/link/{idLink}/edit")
     public String saveEditLink(@PathVariable Integer idProduct, @PathVariable Integer idLink, Price price) {
         priceService.updateLink(idLink, price);
-        return "redirect:/product/{idProduct}/links";
+        return "redirect:/product/{idProduct}/prices";
     }
 
     @GetMapping("/product/{idProduct}/prices")

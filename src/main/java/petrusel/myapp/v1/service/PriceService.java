@@ -75,7 +75,7 @@ public class PriceService {
                 priceBlock = doc.getElementsByClass("pret_tabela").first();
                 price = priceBlock.select("span#product-price").text() + " Lei";
             } else {
-                System.out.println("The shop doesn't exist in the list");
+                price = "null";
             }
             link.setPriceProduct(price);
             priceRepository.save(link);
@@ -84,7 +84,6 @@ public class PriceService {
 
     public List<Price> getLinks(Integer id) {
         Product product = productRepository.getReferenceById(id);
-        System.out.println("returnez lista de preturi");
         return product.getPrices();
     }
 
