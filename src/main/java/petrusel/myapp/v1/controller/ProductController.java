@@ -43,31 +43,34 @@ public class ProductController {
         return "redirect:/product/search";
     }
 
-    @GetMapping("/{id}/edit")
-    public String showEditProductForm(@PathVariable Integer id, Model model) {
+    @GetMapping("/{id}/edit/{keyword}")
+    public String showEditProductForm(@PathVariable Integer id, @PathVariable String keyword, Model model) {
         Product product = productService.getProductById(id);
         model.addAttribute("product", product);
+        model.addAttribute("keyword", keyword);
         return "edit_product";
     }
 
-    @PostMapping("/{id}/edit")
+    @PostMapping("/{id}/edit/{keyword}")
     public String saveUpdateProduct(@PathVariable Integer id,
+                                    @PathVariable String keyword,
                                     @RequestParam("file") MultipartFile file,
                                     Product product) {
         productService.updateProduct(id, file, product);
-        return "redirect:/product/search";
+        return "redirect:/product/search?keyword=" + keyword;
     }
 
-    @GetMapping("/{id}/delete")
-    public String deleteProduct(@PathVariable Integer id) {
+    @GetMapping("/{id}/delete/{keyword}")
+    public String deleteProduct(@PathVariable Integer id, @PathVariable String keyword) {
         productService.deleteProduct(id);
-        return "redirect:/product/search";
+        return "redirect:/product/search?keyword=" + keyword;
     }
 
     @GetMapping("/search")
     public String showProducts(String keyword, Model model) {
         List<Product> products = productService.getProdByKeyword(keyword);
         model.addAttribute("allProducts", products);
+        model.addAttribute("keyword", keyword);
         return "search_product";
     }
 }

@@ -90,7 +90,7 @@
                 </div>
             </div>
             <!--Add link form-->
-            <form th:action="@{'/product/' + ${id} + '/addLink'}" method="post" th:object="${link}">
+            <form th:action="@{'/product/' + ${id} + '/addLink/' + ${keyword}}" method="post" th:object="${link}">
                 <!--Link-->
                 <div class="mb-3">
                     <label for="link" class="form-label">
@@ -104,7 +104,7 @@
                 </div>
             </form>
 
-            <a id="id_back_btn" th:href="@{'/product/' + ${id} + '/prices'}" role="button" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
+            <a id="id_back_btn" th:href="@{'/product/' + ${id} + '/prices/' + ${keyword}}" role="button" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
 
         </div>
     </div>

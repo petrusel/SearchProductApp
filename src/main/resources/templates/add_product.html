@@ -85,34 +85,31 @@
     <div class="card-body">
         <div class="container-fluid">
             <!--Add product form-->
-            <form th:action="@{/product/new}" method="post" th:object="${product}" enctype="multipart/form-data">
-                <!--Image-->
-                <div class="mb-3">
-                    <label for="formFile" class="form-label">
-                        Picture:
-                    </label>
-                    <input id="formFile" name="file" type="file" class="form-control">
-                </div>
-                <!--Name-->
-                <div class="mb-3">
-                    <label for="name" class="form-label">
-                        Name:
-                    </label>
-                    <input id="name" th:field="*{name}" type="text" class="form-control" required autofocus="autofocus"/>
-                </div>
-                <!--Description-->
-                <div class="mb-3">
-                    <label for="desc" class="form-label">
-                        Description:
-                    </label>
-                    <input id="desc" th:field="*{description}" type="text" class="form-control" required autofocus="autofocus"/>
-                </div>
-                <!--Submit button-->
-                <div>
-                    <button type="submit" class="btn btn-secondary">Add</button>
-                    <button id="id_back_btn" onclick="location.href='/product/search'" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></button>
-                </div>
-            </form>
+            <div class="shadow p-3 mb-5 bg-body rounded" style="height: auto; width: auto;">
+                <h5 align="center">Add product</h5>
+                <form th:action="@{/product/new}" method="post" th:object="${product}" enctype="multipart/form-data">
+                    <!--Image-->
+                    <div class="mb-3">
+                        <div class="form-text"> Image </div>
+                        <input id="formFile" name="file" type="file" class="form-control">
+                    </div>
+                    <!--Name-->
+                    <div class="mb-3">
+                        <div class="form-text"> Product name </div>
+                        <input id="name" th:field="*{name}" type="text" class="form-control" required autofocus="autofocus"/>
+                    </div>
+                    <!--Description-->
+                    <div class="mb-3">
+                        <div class="form-text"> Description </div>
+                        <input id="desc" th:field="*{description}" type="text" class="form-control" required autofocus="autofocus"/>
+                    </div>
+                    <!--Submit button-->
+                    <div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%;">Add</button>
+                        <button id="id_back_btn" onclick="location.href='/product/search'" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 </div>

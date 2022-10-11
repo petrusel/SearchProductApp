@@ -79,7 +79,7 @@
   <div class="card-body">
     <div class="container-fluid">
       <!--Add link form-->
-      <form th:action="@{'/product/' + ${id} + '/link/' + ${link.id} + '/edit'}" method="post" th:object="${link}">
+      <form th:action="@{'/product/' + ${id} + '/link/' + ${link.id} + '/edit/' + ${keyword}}" method="post" th:object="${link}">
         <!--Link-->
         <div class="mb-3">
           <label for="link" class="form-label">

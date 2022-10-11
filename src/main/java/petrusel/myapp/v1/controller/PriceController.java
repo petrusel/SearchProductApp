@@ -24,17 +24,17 @@ public class PriceController {
         this.productService = productService;
     }
 
-    @GetMapping("/product/{id}/addLink")
-    public String addLink(@PathVariable Integer id, Model model) {
+    @GetMapping("/product/{id}/addLink/{keyword}")
+    public String addLink(@PathVariable Integer id, @PathVariable String keyword, Model model) {
         Price price = new Price();
         model.addAttribute("link", price);
         return "add_link";
     }
 
-    @PostMapping("/product/{id}/addLink")
-    public String saveLink(@PathVariable Integer id, Price price) {
+    @PostMapping("/product/{id}/addLink/{keyword}")
+    public String saveLink(@PathVariable Integer id, @PathVariable String keyword, Price price) {
         priceService.addProductLinks(id, price);
-        return "redirect:/product/{id}/addLink?success";
+        return "redirect:/product/{id}/addLink/a?success";
     }
 
     @RequestMapping(value="/takePrices")
@@ -50,14 +50,14 @@ public class PriceController {
         return "links_list";
     }
 
-    @GetMapping("/product/{idProduct}/link/{idLink}/delete")
-    public String removeLink(@PathVariable Integer idLink) {
+    @GetMapping("/product/{idProduct}/link/{idLink}/delete/{keyword}")
+    public String removeLink(@PathVariable Integer idLink, @PathVariable String keyword) {
         priceService.deleteLink(idLink);
-        return "redirect:/product/{idProduct}/prices";
+        return "redirect:/product/{idProduct}/prices/" + keyword;
     }
 
-    @GetMapping("/product/{idProduct}/link/{idLink}/edit")
-    public String editLinkForm(@PathVariable Integer idProduct, @PathVariable Integer idLink, Model model) {
+    @GetMapping("/product/{idProduct}/link/{idLink}/edit/{keyword}")
+    public String editLinkForm(@PathVariable Integer idProduct, @PathVariable Integer idLink, @PathVariable String keyword, Model model) {
         Price price = priceService.getLinkById(idLink);
         Product product = productService.getProductById(idProduct);
         model.addAttribute("link", price);
@@ -65,18 +65,19 @@ public class PriceController {
         return "edit_link";
     }
 
-    @PostMapping("/product/{idProduct}/link/{idLink}/edit")
-    public String saveEditLink(@PathVariable Integer idProduct, @PathVariable Integer idLink, Price price) {
+    @PostMapping("/product/{idProduct}/link/{idLink}/edit/{keyword}")
+    public String saveEditLink(@PathVariable Integer idProduct, @PathVariable Integer idLink, @PathVariable String keyword, Price price) {
         priceService.updateLink(idLink, price);
-        return "redirect:/product/{idProduct}/prices";
+        return "redirect:/product/{idProduct}/prices/" + keyword;
     }
 
-    @GetMapping("/product/{idProduct}/prices")
-    public String showPrices(@PathVariable Integer idProduct, Model model) {
+    @GetMapping("/product/{idProduct}/prices/{keyword}")
+    public String showPrices(@PathVariable Integer idProduct, @PathVariable String keyword, Model model) {
         List<Price> prices = priceService.getLinks(idProduct);
         Product product = productService.getProductById(idProduct);
         model.addAttribute("product", product);
         model.addAttribute("prices", prices);
+        model.addAttribute("keyword", keyword);
         return "prices_list";
     }
 }

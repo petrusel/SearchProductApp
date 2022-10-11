@@ -96,16 +96,16 @@
       <table class="table table-hover table-borderless">
         <tbody>
           <tr th:each="price : ${prices}">
-            <td class="align-middle" style="width: 20%">
+            <td class="align-middle" style="width: 40%">
+              <span th:text="${price.site}"></span>
+            </td>
+            <td class="align-middle" style="width: 40%">
               <a th:href="${price.link}"><p th:text="${price.priceProduct}"></p></a>
             </td>
-            <td sec:authorize="hasAuthority('ADMIN')" class="align-middle" style="width: 60%">
-              <span th:text="${price.link}"></span>
-            </td>
             <td sec:authorize="hasAuthority('ADMIN')" class="align-middle" style="width: 20%">
-              <a th:href="@{'/product/' + ${product.id} + '/link/' + ${price.id} + '/edit'}"
+              <a th:href="@{'/product/' + ${product.id} + '/link/' + ${price.id} + '/edit/' + ${keyword}}"
                  role="button" class="btn btn-success"><i class="las la-pen"></i></a>
-              <a th:href="@{'/product/' + ${product.id} + '/link/' + ${price.id} + '/delete'}"
+              <a th:href="@{'/product/' + ${product.id} + '/link/' + ${price.id} + '/delete/' + ${keyword}}"
                  role="button" class="btn btn-danger"><i class="las la-trash"></i></a>
             </td>
           </tr>
@@ -113,10 +113,10 @@
       </table>
 
       <!--Add new link-->
-      <a sec:authorize="hasAuthority('ADMIN')" id="id_addLinkBtn_a" th:href="@{'/product/' + ${product.id} + '/addLink'}" role="button"
+      <a sec:authorize="hasAuthority('ADMIN')" id="id_addLinkBtn_a" th:href="@{'/product/' + ${product.id} + '/addLink/' + ${keyword}}" role="button"
          class="btn btn-dark"><i class="las la-link la-2x"></i></a>
 
-      <a id="id_back_btn" th:href="@{'/product/search'}" role="button"
+      <a id="id_back_btn" th:href="@{'/product/search?keyword=' + ${keyword}}" role="button"
          class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
 
 

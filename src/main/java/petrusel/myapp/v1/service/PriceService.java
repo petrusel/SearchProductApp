@@ -49,11 +49,17 @@ public class PriceService {
         return document;
     }
 
+    public static String getDomainName(String url) {
+        return url.replaceAll("http(s)?://|www\\.|wap\\.|/.*", "");
+    }
+
     public void getPrices() {
         List<Price> links = priceRepository.findAll();
         for(Price link : links) {
             Document doc = getDocument(link.getLink());
             String price = "";
+            String site = getDomainName(link.getLink());
+
             Element priceBlock;
             if (link.getLink().contains("emag")) {
                 priceBlock = doc.select("div.pricing-block.has-installments").first();
@@ -78,6 +84,7 @@ public class PriceService {
                 price = "null";
             }
             link.setPriceProduct(price);
+            link.setSite(site);
             priceRepository.save(link);
         }
     }
