@@ -79,19 +79,19 @@
   <div class="card-body">
     <div class="container-fluid">
       <!--Add link form-->
-      <form th:action="@{'/product/' + ${id} + '/link/' + ${link.id} + '/edit/' + ${keyword}}" method="post" th:object="${link}">
-        <!--Link-->
-        <div class="mb-3">
-          <label for="link" class="form-label">
-            Add link:
-          </label>
-          <input id="link" th:field="*{link}" type="text" class="form-control" required autofocus="autofocus"/>
-        </div>
-        <!--Submit button-->
-        <div>
-          <button type="submit" class="btn btn-secondary">Update</button>
-        </div>
-      </form>
+      <div class="shadow p-3 mb-5 bg-body rounded" style="height: auto; width: auto;">
+        <h5 align="center">Update link for "<b th:text="${product.name}"></b>"</h5>
+        <form th:action="@{'/product/' + ${product.id} + '/link/' + ${link.id} + '/edit/' + ${keyword}}" method="post" th:object="${link}">
+          <!--Link-->
+          <div class="mb-3">
+            <input id="link" th:field="*{link}" type="text" class="form-control" required autofocus="autofocus"/>
+          </div>
+          <!--Submit button-->
+          <div>
+            <button type="submit" class="btn btn-secondary" style="width: 100%;">Update</button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>

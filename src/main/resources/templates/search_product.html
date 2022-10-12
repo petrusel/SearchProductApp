@@ -90,11 +90,6 @@
   <!--BODY-->
   <div class="card-body">
     <div class="container-fluid">
-      <div th:if="${param.success}" class="mb-3">
-        <div class="alert alert-primary" role="alert">
-          You're successfully updated the prices!
-        </div>
-      </div>
       <!--Search-->
       <form th:action="@{'/product/search'}" method="get">
         <div id="id_searchBar_div" class="input-group mb-3">
@@ -106,11 +101,11 @@
         <div class="col" th:each="prod : ${allProducts}">
           <div class="card" style="font-size: 1rem; height: auto; align-items: center;">
             <img th:src="*{'data:image/jpg;base64,' + {prod.image}}" style="width: 7rem; height: 7rem">
-            <div class="card-body" style="min-height: 10rem; height: 11rem; background-color: #eeeeee;" >
+            <div class="card-body" style="min-height: 9rem; height: 10rem; background-color: #eeeeee;" >
               <a th:href="@{'/product/' + ${prod.id} + '/prices/' + ${keyword}}"><h6 th:text="${prod.name}" class="card-title"></h6></a>
               <p th:text="${prod.description}" class="card-text"
                  style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box;
-                      -webkit-line-clamp: 5; line-clamp: 5; -webkit-box-orient: vertical;">
+                      -webkit-line-clamp: 4; line-clamp: 4; -webkit-box-orient: vertical;">
               </p>
             </div>
             <div sec:authorize="hasAuthority('ADMIN')" class="card-footer" style="height: 3rem; width: 100%;" align="center">

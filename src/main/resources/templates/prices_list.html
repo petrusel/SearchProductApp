@@ -97,7 +97,10 @@
         <tbody>
           <tr th:each="price : ${prices}">
             <td class="align-middle" style="width: 40%">
-              <span th:text="${price.site}"></span>
+              <span th:if="${price.site == null}">
+                <div th:text="${price.link}" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 15rem;"></div>
+              </span>
+              <span th:unless="${price.site == null}" th:text="${price.site}"></span>
             </td>
             <td class="align-middle" style="width: 40%">
               <a th:href="${price.link}"><p th:text="${price.priceProduct}"></p></a>

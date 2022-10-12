@@ -90,19 +90,19 @@
                 </div>
             </div>
             <!--Add link form-->
-            <form th:action="@{'/product/' + ${id} + '/addLink/' + ${keyword}}" method="post" th:object="${link}">
-                <!--Link-->
-                <div class="mb-3">
-                    <label for="link" class="form-label">
-                        Add link:
-                    </label>
-                    <input id="link" th:field="*{link}" type="text" class="form-control" required autofocus="autofocus"/>
-                </div>
-                <!--Submit button-->
-                <div>
-                    <button type="submit" class="btn btn-secondary">Add</button>
-                </div>
-            </form>
+            <div class="shadow p-3 mb-5 bg-body rounded" style="height: auto; width: auto;">
+                <h5 align="center">Add a new link for "<b th:text="${product.name}"></b>"</h5>
+                <form th:action="@{'/product/' + ${id} + '/addLink/' + ${keyword}}" method="post" th:object="${link}">
+                    <!--Link-->
+                    <div class="mb-3">
+                        <input id="link" th:field="*{link}" type="text" class="form-control" required autofocus="autofocus"/>
+                    </div>
+                    <!--Submit button-->
+                    <div>
+                        <button type="submit" class="btn btn-secondary" style="width: 100%">Add</button>
+                    </div>
+                </form>
+            </div>
 
             <a id="id_back_btn" th:href="@{'/product/' + ${id} + '/prices/' + ${keyword}}" role="button" class="btn btn-light rounded-circle"><i class="las la-undo la-2x"></i></a>
 

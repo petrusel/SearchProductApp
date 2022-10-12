@@ -27,7 +27,9 @@ public class PriceController {
     @GetMapping("/product/{id}/addLink/{keyword}")
     public String addLink(@PathVariable Integer id, @PathVariable String keyword, Model model) {
         Price price = new Price();
+        Product product = productService.getProductById(id);
         model.addAttribute("link", price);
+        model.addAttribute("product", product);
         return "add_link";
     }
 
@@ -61,7 +63,8 @@ public class PriceController {
         Price price = priceService.getLinkById(idLink);
         Product product = productService.getProductById(idProduct);
         model.addAttribute("link", price);
-        model.addAttribute("id", product.getId());
+        model.addAttribute("product", product);
+
         return "edit_link";
     }
 
