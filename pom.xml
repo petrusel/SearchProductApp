@@ -14,14 +14,9 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>v1</name>
 	<description>App for searching products</description>
-<!--	<properties>-->
-<!--		<java.version>18</java.version>-->
-<!--	</properties>-->
-
 	<properties>
-		<java.version>11</java.version>
+		<java.version>18</java.version>
 	</properties>
-
 
 	<dependencies>
 
