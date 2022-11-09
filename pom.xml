@@ -15,7 +15,7 @@
 	<name>v1</name>
 	<description>App for searching products</description>
 	<properties>
-		<java.version>8</java.version>
+		<java.version>18</java.version>
 	</properties>
 
 	<dependencies>
