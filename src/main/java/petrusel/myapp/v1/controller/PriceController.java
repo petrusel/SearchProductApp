@@ -36,13 +36,13 @@ public class PriceController {
     @PostMapping("/product/{id}/addLink/{keyword}")
     public String saveLink(@PathVariable Integer id, @PathVariable String keyword, Price price) {
         priceService.addProductLinks(id, price);
-        return "redirect:/product/{id}/addLink/a?success";
+        return "redirect:/product/{id}/addLink/" + keyword + "?success";
     }
 
     @RequestMapping(value="/takePrices")
     public String updatePrices() {
         priceService.getPrices();
-        return "redirect:/product/search?success";
+        return "redirect:/product/search";
     }
 
     @GetMapping("/product/{id}/links")
